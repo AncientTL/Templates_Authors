@@ -1,0 +1,168 @@
+%%JOURNAL TEMPLATE ANCIENT TL
+%%author: Regina DeWitt, Sebastian Kreutzer
+%%licence: LaTeX project public license (LPPL) in version 1.3c or later
+%%version: 2025-04-01
+
+\documentclass{article}
+\usepackage[preprint]{config/ATL} %% allowed flags: preprint, proof, final
+
+%%=========================================================%%
+%%CONFIG - TO BE MODIFIED BY COPY-EDITOR ONLY
+%%=========================================================%%
+\setcounter{page}{1} 					             %page start counter
+\AuthorHeaderATL{Author}	                         %family name of first author 
+\VolHeaderATL{X}					                 %ATL Vol
+\NoHeaderATL{X}					                     %ATL No
+\YearHeaderATL{X}				                     %ATL year
+
+\lstset{language=R} %% define programming language for listing package.
+%%=========================================================%%
+%%PAPER TITLE 
+%%=========================================================%%
+\begin{document}
+%%
+%% 
+%% MANUSCRIPT TI1TLE
+\title{A Fairy Tale on Luminescence and ESR Dating}
+%%
+%% AUTHOR(S) AND AFFILATION AND CONTRIBUTION HISTORY
+\author{Electra Trap \orcid{0000-0002-9079-593X},$^{1\ast}$\\
+\\
+\normalsize{$^{1}$ Centre for Luminescence and ESR dating, Ancient TL}\\
+\\
+\normalsize{$^\ast$Corresponding Author: electra.trap@ancient.tl}\\
+\\
+%\it\normalsize{Received: June 25, 2014; in final form: December 12, 2014}\\
+}
+
+%%=========================================================%%
+%%TODO LIST FOR AUTHOR - JUST UNCOMMENT FOR USAGE
+%%=========================================================%%
+%\makeatother
+%\listoftodos 
+%\relax
+%
+%%%%%TODO FOR AUTHOR
+%\todo{ToDo}
+
+\maketitle
+%%=========================================================%%
+%%MAINTEXT
+%%=========================================================%%
+
+%%%%%%%%% Abstract
+
+\begin{abstract}
+Your abstract. Your abstract. Your abstract. Your abstract. Your abstract. Your abstract.
+Your abstract. Your abstract. Your abstract. Your abstract. Your abstract. Your abstract.
+ \\
+   \\
+   Keywords: Keyword 1, Keyword 2, Keyword 3, Keyword 4, Keyword 5
+\end{abstract}
+
+
+%%%%%%%%%  BODY TEXT
+%-------------------------------------------------------------------------
+\section{Formatting the document}
+%-------------------------------------------------------------------------
+\subsection{References}
+References in Ancient TL \citep{ATL-website} are inserted using standard \LaTeX citations. 
+Example for the the article radiation damage as a research tool for geology and prehistory: \cite{Grogler1958fk}
+
+%-------------------------------------------------------------------------
+\subsection{Illustrations, graphs}
+
+Resize fonts in figures to match the font in the body text, and choose line 
+widths which render effectively in print.  Many readers (and reviewers), 
+even of an electronic copy, will choose to print your paper in order to read it.  You cannot
+insist that they do otherwise, and therefore must not assume that they can
+zoom in to see tiny details on a graphic.
+
+When placing figures in \LaTeX, it's almost always best to use
+\verb+\includegraphics+, and to specify the  figure width as a multiple of
+the line width as in the example below
+
+{\small\begin{verbatim}
+   \usepackage[dvips]{graphicx} ...
+   \includegraphics[width=0.8\linewidth]
+                   {myfile.eps}
+\end{verbatim}
+}
+
+
+%-------------------------------------------------------------------------
+\subsection{Tables}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{lc}
+\hline
+Method & Frobnability \\
+\hline\hline
+Theirs & Frumpy \\
+Yours & Frobbly \\
+Ours & Makes one's heart Frob\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Results.   Ours is better.}
+\end{table}
+
+
+%-------------------------------------------------------------------------
+\subsection{Equations}
+
+Equations can be set in two ways: (a) inline ($y = e^x$) and (b) as separate equation:
+\begin{equation} 
+I(x) = I_{0}(1-exp(\frac{x-a}{b}))
+\end{equation}
+    
+ 
+%-------------------------------------------------------------------------
+\subsection{Footnotes}
+
+Please use footnotes\footnote {This is what a footnote looks like.  It
+often distracts the reader from the main flow of the argument.} sparingly.
+Indeed, try to avoid footnotes altogether and include necessary peripheral
+observations in
+the text (within parentheses, if you prefer, as in this sentence).  If you
+wish to use a footnote, place it at the bottom of the column on the page on
+which it is referenced. 
+
+%-------------------------------------------------------------------------
+\subsection{Source code}
+
+Program code/source code can be included using the listings environment, e.g.
+
+\begin{lstlisting}[caption = A simple for-loop]
+  for (i in 1:100){
+  
+    print(''Hello World'')
+  
+  }
+  
+\end{lstlisting}
+
+
+
+\vspace*{20 pt}
+
+\section*{Acknowledgments} 
+We are grateful to the ghost of luminescence.
+
+
+%%=========================================================%%
+%%BELOW = TO BE MODIFIED BY COPY-EDITOR ONLY
+%%=========================================================%%
+\vspace*{16pt}
+
+{\small
+\bibliographystyle{config/icml2013-RD}
+\bibliography{main.bib}
+}
+
+%\vspace*{16pt}
+%\subsection*{Reviewer}
+%Name 
+\end{document}
+

@@ -1,0 +1,350 @@
+%%=========================================================%%
+%This is the IEEE LaTEX template modified by R. DeWitt and S. Kreutzer for Ancient TL
+%version: 2025-04-01
+
+%%Changes to the original version
+% - The review version and final version functions were modified
+%  - changed letter to A4
+%  - Title and abstract layout
+%  - header was added
+%  - logo was added
+%  - clean up and moved as much as packages to the style file
+%  - add package listings
+
+%%Further Changes
+%% 2018-01-11 [SK]: remove wrong \kern call to avoid crash for the proof
+%% 2019-07-26 [SK]: Add CC BY logo 
+%% 2019-07-27 [SK]: Include packages 'xcolor' and 'academicons'
+%% 2025-04-01 [SK]: Move certain settings to the style file; clean up
+%%=========================================================%%
+
+%% REQUIRED TEX FORMAT
+\NeedsTeXFormat{LaTeX2e}
+
+% DECLARE OPTIONS for 'final', 'proof', 'preprint'
+\def\@includeimage{false}
+\DeclareOption{final}{%
+   \AtBeginDocument{\twocolumn}
+   \AtBeginDocument{\cvprfinalcopy}
+   \def\@includeimage{true}
+   \def\@documentmode{final}
+   
+}
+\DeclareOption{proof}{%
+   \AtBeginDocument{\twocolumn}
+   \AtBeginDocument{\SetWatermarkText{\textcolor{lightgray}{PROOF}}}
+   \def\@documentmode{proof}
+
+}
+\DeclareOption{preprint}{%
+   \AtBeginDocument{\onecolumn} 
+   \AtBeginDocument{\SetWatermarkText{\textcolor{lightgray}{}}}
+   \def\@documentmode{preprint}
+}
+
+% Execute the selected options
+\ProcessOptions\relax
+
+% fix certain settings for the class
+\AtBeginDocument{
+ \fontsize{10}{12}\selectfont
+ \usepackage{mathptmx}
+}
+
+\usepackage{eso-pic, picture} %SK modification for logo
+\usepackage{xspace}
+\usepackage{natbib} %RD modification
+\usepackage{draftwatermark} %SK modification for proof
+\usepackage{mathptmx} %changes from times, SK
+\usepackage{epsfig}
+\usepackage{graphicx,dblfloatfix}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{eso-pic}
+\usepackage{natbib}
+\usepackage{lastpage}
+\usepackage{epstopdf}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage[
+  breaklinks=true,
+  bookmarks=true,
+  colorlinks=true, 
+  citecolor=violet, 
+  linkcolor = black]{hyperref}
+
+\usepackage{listings} %SK software code
+\usepackage[textwidth=1cm]{todonotes}
+
+%config for package listings
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{lightgray}{gray}{0.95}
+\lstset{ %
+   language=R,  %can be overwritten using the same option in the main text
+   basicstyle=\footnotesize,           % the size of the fonts that are used for the code
+   numbers=left,
+   numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+   stepnumber=1,
+   keywordstyle=\color{blue},           % keyword style
+   commentstyle=\color{dkgreen},       % comment style
+   stringstyle=\color{mauve},
+   backgroundcolor=\color{lightgray}
+ }
+
+
+% ten point helvetica bold required for captions
+% eleven point times bold required for second-order headings
+% in some sites the name of the fonts may differ,
+% change the name here:
+\font\cvprtenhv  = phvb at 8pt % *** IF THIS FAILS, SEE cvpr.sty ***
+\font\elvbf  = ptmb scaled 1100
+
+% If the above lines give an error message, try to comment them and
+% uncomment these:
+%\font\cvprtenhv  = phvb7t at 8pt
+%\font\elvbf  = ptmb7t scaled 1100
+
+% set dimensions of columns, gap between columns, and paragraph indent
+\setlength{\textheight}{9.5in}%{8.875in}
+\setlength{\textwidth}{7.0in}%{6.875in}
+\setlength{\columnsep}{0.3125in}
+\setlength{\topmargin}{0in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\parindent}{1pc}
+\setlength{\oddsidemargin}{-.304in}
+\setlength{\evensidemargin}{-.304in}
+\setlength{\marginparwidth}{1.3cm}
+
+\newif\ifcvprfinal
+\cvprfinalfalse
+\def\cvprfinalcopy{\global\cvprfinaltrue}
+
+\def\bottomtitlebar{
+\vskip .025in
+\hrule height.25pt
+\vskip .01in}
+
+% memento from size10.clo
+% \normalsize{\@setfontsize\normalsize\@xpt\@xiipt}
+% \small{\@setfontsize\small\@ixpt{11}}
+% \footnotesize{\@setfontsize\footnotesize\@viiipt{9.5}}
+% \scriptsize{\@setfontsize\scriptsize\@viipt\@viiipt}
+% \tiny{\@setfontsize\tiny\@vpt\@vipt}
+% \large{\@setfontsize\large\@xiipt{14}}
+% \Large{\@setfontsize\Large\@xivpt{18}}
+% \LARGE{\@setfontsize\LARGE\@xviipt{22}}
+% \huge{\@setfontsize\huge\@xxpt{25}}
+% \Huge{\@setfontsize\Huge\@xxvpt{30}}
+
+%%SK, 07/2019: add new command to support ORCID
+\newcommand{\orcid}[1]{\href{https://orcid.org/#1}{\includegraphics[width=.8em]{config/ORCID.eps}}}
+
+%%SK,  03/2015: define variables for header of the manuscript
+\def\AuthorHeaderATL#1{\gdef\@AuthorHeaderATL{#1}}
+\def\VolHeaderATL#1{\gdef\@VolHeaderATL{#1}}
+\def\NoHeaderATL#1{\gdef\@NoHeaderATL{#1}}
+\def\YearHeaderATL#1{\gdef\@YearHeaderATL{#1}}
+
+\ifnum\pdfstrcmp{\@documentmode}{final}=0
+\AddToShipoutPicture{
+  \AtTextUpperLeft{
+    \put(0,\LenToUnit{1cm}){\parbox{\textwidth}{\centering\cvprtenhv
+       \@AuthorHeaderATL, {\it Ancient TL}, Vol. \@VolHeaderATL , No. \@NoHeaderATL , \@YearHeaderATL}}
+  }
+}
+\fi
+
+%%SK,  03/2015: define special abstract for Ancient TL
+%%This will be added to the header
+\def\abstractATL#1{\gdef\@abstractATL{#1}}
+\def\keywordsATL#1{\gdef\@keywordsATL{#1}}
+
+%%SK, add CC logo to article template
+\AddToShipoutPictureFG*{%
+    \AtPageUpperLeft{%
+      \put(1.5cm,-2cm){%
+       \includegraphics[width=0.115\textwidth]{config/by.eps}
+      }%
+      \put(1.5cm,-2.2cm){%
+       \sffamily{\tiny{licensed under CC BY 4.0}}
+      }%
+    }%
+  }%
+
+\def\@maketitle
+   {
+   \newpage
+   \null
+   	 %% include ATL logo only in final version
+     \begin{center}
+      \ifnum\pdfstrcmp{\@includeimage}{true}=0
+       \includegraphics[width=0.25\textwidth]{config/ATL_logo.png}\\
+       \vspace*{16pt}
+      \else
+       	\ifnum\pdfstrcmp{\@documentmode}{proof}=0
+		 ACCEPTED MANUSCRIPT - UNCORRECTED PROOF
+		 \else
+		 \textit{Preprint for submission to Ancient TL}
+		 \fi
+       	\vspace*{18pt}
+      \fi
+      
+     \end{center}
+
+   %\vskip .1in
+   \begin{center}
+        % \vspace*{16pt} %% uncomment, SK, 03/2015
+         {\Large \bf \@title \par}
+      % additional two empty lines at the end of the title
+      \vspace*{16pt}
+      {
+      \large
+      \lineskip .5em
+      \begin{tabular}[t]{c}
+        \@author
+      \end{tabular}
+      \par
+      }
+      % additional small space at the end of the author name
+      \vskip .9em
+      \bottomtitlebar
+      % additional empty line at the end of the title block
+      \vspace*{12pt}
+
+   \end{center}
+   }
+
+
+   % Redefinition of the abstract environment.
+\renewenvironment{abstract}
+   {
+\centerline{\large\bf Abstract}
+    \vspace{-0.08in}\begin{quote}\bf}
+   {\par \end{quote}
+ %  \vskip -.15in
+%\noindent\hfil\rule{0.41\textwidth}{.4pt}\hfil
+   \vskip 0.25in}
+
+
+\def\affiliation#1{\gdef\@affiliation{#1}} \gdef\@affiliation{}
+
+\newlength{\@ctmp}
+\newlength{\@figindent}
+\setlength{\@figindent}{1pc}
+
+\long\def\@makecaption#1#2{
+   \setbox\@tempboxa\hbox{\small \noindent #1.~#2}
+   \setlength{\@ctmp}{\hsize}
+   \addtolength{\@ctmp}{-\@figindent}\addtolength{\@ctmp}{-\@figindent}
+   % IF longer than one indented paragraph line
+   \ifdim \wd\@tempboxa >\@ctmp
+      % THEN DON'T set as an indented paragraph
+      {\small #1.~#2\par}
+   \else
+      % ELSE center
+      \hbox to\hsize{\hfil\box\@tempboxa\hfil}
+  \fi}
+
+% correct heading spacing and type
+\def\cvprsection{\@startsection {section}{1}{\z@}
+   {20pt plus 2pt minus 2pt}{7pt} {\large\bf}}
+\def\cvprssect#1{\cvprsection*{#1}}
+\def\cvprsect#1{\cvprsection{\hskip -1em.~#1}}
+\def\section{\@ifstar\cvprssect\cvprsect}
+
+\def\cvprsubsection{\@startsection {subsection}{2}{\z@}
+   {12pt plus 2pt minus 2pt}{4pt} {\elvbf}}
+\def\cvprssubsect#1{\cvprsubsection*{#1}}
+\def\cvprsubsect#1{\cvprsubsection{\hskip -1em.~#1}}
+\def\subsection{\@ifstar\cvprssubsect\cvprsubsect}
+
+%% --------- Page background marks
+
+% ----- define vruler
+\makeatletter
+\newbox\cvprrulerbox
+\newcount\cvprrulercount
+\newdimen\cvprruleroffset
+\newdimen\cv@lineheight
+\newdimen\cv@boxheight
+\newbox\cv@tmpbox
+\newcount\cv@refno
+\newcount\cv@tot
+% NUMBER with left flushed zeros  \fillzeros[<WIDTH>]<NUMBER>
+\newcount\cv@tmpc@ \newcount\cv@tmpc
+\def\fillzeros[#1]#2{\cv@tmpc@=#2\relax\ifnum\cv@tmpc@<0\cv@tmpc@=-\cv@tmpc@\fi
+\cv@tmpc=1 %
+\loop\ifnum\cv@tmpc@<10 \else \divide\cv@tmpc@ by 10 \advance\cv@tmpc by 1 \fi
+   \ifnum\cv@tmpc@=10\relax\cv@tmpc@=11\relax\fi \ifnum\cv@tmpc@>10 \repeat
+\ifnum#2<0\advance\cv@tmpc1\relax-\fi
+\loop\ifnum\cv@tmpc<#1\relax0\advance\cv@tmpc1\relax\fi \ifnum\cv@tmpc<#1 \repeat
+\cv@tmpc@=#2\relax\ifnum\cv@tmpc@<0\cv@tmpc@=-\cv@tmpc@\fi \relax\the\cv@tmpc@}%
+% \makevruler[<SCALE>][<INITIAL_COUNT>][<STEP>][<DIGITS>][<HEIGHT>]
+\def\makevruler[#1][#2][#3][#4][#5]{\begingroup\offinterlineskip
+\textheight=#5\vbadness=10000\vfuzz=120ex\overfullrule=0pt%
+\global\setbox\cvprrulerbox=\vbox to \textheight{%
+{\parskip=0pt\hfuzz=150em\cv@boxheight=\textheight
+\cv@lineheight=#1\global\cvprrulercount=#2%
+\cv@tot\cv@boxheight\divide\cv@tot\cv@lineheight\advance\cv@tot2%
+\cv@refno1\vskip-\cv@lineheight\vskip1ex%
+\loop\setbox\cv@tmpbox=\hbox to0cm{{\cvprtenhv\hfil\fillzeros[#4]\cvprrulercount}}%
+\ht\cv@tmpbox\cv@lineheight\dp\cv@tmpbox0pt\box\cv@tmpbox\break
+\advance\cv@refno1\global\advance\cvprrulercount#3\relax
+\ifnum\cv@refno<\cv@tot\repeat}}\endgroup}%
+\makeatother
+% ----- end of vruler
+
+% \makevruler[<SCALE>][<INITIAL_COUNT>][<STEP>][<DIGITS>][<HEIGHT>]
+\def\cvprruler#1{\makevruler[12pt][#1][1][3][0.993\textheight]\usebox{\cvprrulerbox}}
+\AddToShipoutPicture{%
+\ifcvprfinal\else
+  %\AtTextLowerLeft{%
+  % \color[gray]{.15}\framebox(\LenToUnit{\textwidth},\LenToUnit{\textheight}){}
+  %}
+\cvprruleroffset=\textheight
+\advance\cvprruleroffset by -3.7pt
+  \color[rgb]{.5,.5,1}
+  \AtTextUpperLeft{%
+    \put(\LenToUnit{-35pt},\LenToUnit{-\cvprruleroffset}){%left ruler
+      \cvprruler{\cvprrulercount}}
+    \put(\LenToUnit{\textwidth},\LenToUnit{-\cvprruleroffset}){%right ruler
+      \cvprruler{\cvprrulercount}}
+  }
+
+\fi
+}
+
+
+
+%%% Make figure placement a little more predictable.
+% We trust the user to move figures if this results
+% in ugliness.
+% Minimize bad page breaks at figures
+\renewcommand{\textfraction}{0.01}
+\renewcommand{\floatpagefraction}{0.99}
+\renewcommand{\topfraction}{0.99}
+\renewcommand{\bottomfraction}{0.99}
+\renewcommand{\dblfloatpagefraction}{0.99}
+\renewcommand{\dbltopfraction}{0.99}
+\setcounter{totalnumber}{99}
+\setcounter{topnumber}{99}
+\setcounter{bottomnumber}{99}
+
+% Add a period to the end of an abbreviation unless there's one
+% already, then \xspace.
+\makeatletter
+\DeclareRobustCommand\onedot{\futurelet\@let@token\@onedot}
+\def\@onedot{\ifx\@let@token.\else.\null\fi\xspace}
+
+\def\eg{\emph{e.g}\onedot} \def\Eg{\emph{E.g}\onedot}
+\def\ie{\emph{i.e}\onedot} \def\Ie{\emph{I.e}\onedot}
+\def\cf{\emph{c.f}\onedot} \def\Cf{\emph{C.f}\onedot}
+\def\etc{\emph{etc}\onedot} \def\vs{\emph{vs}\onedot}
+\def\wrt{w.r.t\onedot} \def\dof{d.o.f\onedot}
+\def\etal{\emph{et al}\onedot}
+\makeatother
+
+% ---------------------------------------------------------------
